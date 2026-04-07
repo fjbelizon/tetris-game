@@ -41,6 +41,17 @@ Convertir especificaciones en trabajo ejecutable sin ambiguedad:
 - GitHub CLI autenticado (gh auth login)
 - Token en GITHUB_TOKEN (scope repo)
 
+## Limitaciones conocidas
+
+**Squad Configuration debe estar en rama default (main)**
+
+La configuración de Squad (.squad/team.md y .squad/agents/*) reside en la rama por defecto del repositorio (generalmente `main`). GitHub Actions y otros procesos de integración leen esta configuración desde la rama default.
+
+- Si ejecutas `enmarchia bridge` desde una rama de feature, asegúrate de que .squad/team.md y .squad/agents/* estén mergeados a main.
+- Si no están en main, GitHub Actions comentará "No squad member found matching label squad:<name>" en las issues, incluso si el equipo existe en tu rama local.
+
+**Solución:** Mergea los cambios de `.squad/*` a main antes de ejecutar `enmarchia bridge`, o ejecuta bridge solo desde main.
+
 ## Instalacion
 
 1. Instalar ENMARCHIA:
@@ -118,13 +129,15 @@ Resultado esperado:
 
 ### Paso 3. Crear issues desde tareas
 
+**Prerequisito:** Asegúrate de que .squad/team.md y .squad/agents/* estén en la rama default (main). Si trabajas en una rama de feature, mergea primero los cambios de Squad a main.
+
 enmarchia bridge --spec-path specs/001-tetris-console-game
 
-or
+o
 
 enmarchia bridge --spec-path spec-user-auth
 
-or
+o
 
 enmarchia bridge --spec-path C:\proyectos\mi-repo\specs\001-tetris-console-game
 
