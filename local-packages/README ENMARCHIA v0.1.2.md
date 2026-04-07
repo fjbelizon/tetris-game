@@ -27,7 +27,7 @@ Detalles de cumplimiento de terceros: THIRD_PARTY_NOTICES.md
 
 Convertir especificaciones en trabajo ejecutable sin ambiguedad:
 
-1. Definir especificaciones en specs/spec-xxx.
+1. Definir especificaciones en specs/{spec-name}.
 2. Convertir tareas a issues de GitHub.
 3. Sincronizar conocimiento en agentes Squad.
 4. Lanzar ejecucion autonoma.
@@ -110,9 +110,9 @@ En GitHub Copilot Chat, en este orden:
 Resultado esperado:
 
 - specs/CONSTITUTION.md
-- specs/spec-xxx/spec.md
-- specs/spec-xxx/plan.md
-- specs/spec-xxx/tasks.md
+- specs/{spec-name}/spec.md
+- specs/{spec-name}/plan.md
+- specs/{spec-name}/tasks.md
 
 ### Paso 3. Crear issues desde tareas
 
@@ -122,6 +122,10 @@ or
 
 enmarchia bridge --spec-path spec-user-auth
 
+or
+
+enmarchia bridge --spec-path C:\proyectos\mi-repo\specs\001-tetris-console-game
+
 Que hace:
 
 - Lee tasks.md de la carpeta indicada en --spec-path.
@@ -130,6 +134,7 @@ Que hace:
 - Si autoSync esta activo, sincroniza conocimiento a Squad.
 
 Nota: En 0.1.2+, --spec-path es obligatorio para mapear directamente a la especificación destino en Squad.
+Tambien acepta id directo, ruta relativa o ruta absoluta, con separadores / o \\.
 
 ### Paso 4. Sincronizar conocimiento de specs
 
