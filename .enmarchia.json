@@ -1,0 +1,25 @@
+{
+  "project": "tetris-game",
+  "specKit": {
+    "featuresDir": "specs",
+    "constitutionFile": "specs/CONSTITUTION.md"
+  },
+  "squad": {
+    "dir": ".squad",
+    "teamName": "Enmarchia Squad",
+    "watchInterval": 10,
+    "agents": []
+  },
+  "bridge": {
+    "labels": [
+      "enmarchia",
+      "squad"
+    ],
+    "autoSync": true,
+    "issuePrefix": "[Enmarchia]"
+  },
+  "github": {
+    "owner": "fjbelizon",
+    "repo": "tetris-game"
+  }
+}
