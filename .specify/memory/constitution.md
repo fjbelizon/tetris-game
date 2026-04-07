@@ -1,50 +1,111 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: (unversioned) → 1.0.0
+Added sections: Core Principles (I–VII), Technical Constraints, Development Workflow, Governance
+Removed sections: none (initial version)
+Templates requiring updates:
+  ✅ .specify/memory/constitution.md — this file
+  ✅ specs/CONSTITUTION.md — updated with canonical content
+  ✅ .specify/templates/plan-template.md — Constitution Check gates align with I–VII
+  ✅ .specify/templates/tasks-template.md — test discipline reflects Principle VI
+Follow-up TODOs: none
+-->
+
+# Tetris Game Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Technology Stack
+C# 14 and .NET 10 MUST be used exclusively. No third-party NuGet packages are
+permitted beyond those included in the .NET SDK. The project MUST target `net10.0`
+and declare `<LangVersion>14</LangVersion>` in all `.csproj` files.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Clean Architecture
+The codebase MUST maintain strict separation across three layers:
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+- **Domain**: game logic (piece definitions, movement, rotation, collision detection,
+  line clearing, scoring). Zero presentation or I/O code.
+- **Renderer**: console rendering engine. MAY depend on Domain; MUST NOT be
+  referenced by Domain.
+- **Input**: keyboard/controller handling. MAY depend on Domain; MUST NOT be
+  referenced by Domain.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+No Domain class may reference `System.Console`, rendering types, or real-time
+timing APIs. Layer isolation MUST be enforced through separate projects and
+project references.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### III. Code Quality
+Every class and module MUST have a single, clearly stated responsibility.
+All identifiers (types, methods, parameters, variables) MUST use descriptive
+English names. Redundant comments — those that merely restate what the code
+already expresses — are forbidden. Abbreviations that obscure intent are
+forbidden.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### IV. No Global Mutable State
+Game state MUST be passed explicitly through method parameters or constructors.
+Static mutable fields and global singletons are forbidden throughout the entire
+codebase. Immutable value types (structs, records) are preferred for representing
+game state snapshots.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### V. Build for Extension
+The design MUST allow adding new piece types, difficulty levels, or game modes
+without modifying existing Domain classes. The Open/Closed Principle applies to
+all Domain entities. Extension points MUST be expressed via interfaces or
+abstract base types; deep inheritance hierarchies are forbidden. New piece
+shapes, scoring strategies, and level progressions MUST be addable through new
+implementations only.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+### VI. Test Discipline (NON-NEGOTIABLE)
+Domain logic — piece movement, rotation, collision detection, line clearing, and
+scoring — MUST be covered by unit tests using `xunit` (via .NET SDK tooling).
+Tests MUST run without any dependency on `System.Console` or real-time clocks.
+A fake/stub clock interface MUST be provided for time-dependent domain behavior.
+All domain invariants MUST have test coverage. No domain feature is considered
+complete until its tests pass with `dotnet test`.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### VII. Console Application Target
+The deliverable MUST be a .NET console application. Gameplay MUST be visualized
+using ASCII/Unicode block characters rendered in a standard terminal via
+`System.Console`. No GUI frameworks (WinForms, WPF, MAUI, Avalonia, etc.) are
+permitted. The application MUST be runnable cross-platform (Windows, macOS,
+Linux).
+
+## Technical Constraints
+
+- **Runtime**: .NET 10 (`net10.0`), C# 14 language version.
+- **Dependencies**: .NET SDK only. No external NuGet packages.
+- **Testing framework**: `xunit` via `dotnet test`. No third-party mocking
+  libraries; use hand-written test doubles.
+- **Platform target**: Cross-platform terminal (`System.Console`).
+- **Output**: Single console executable; no installer or deployment artifact
+  required beyond `dotnet run` or a self-contained publish.
+
+## Development Workflow
+
+- All new Domain behavior MUST have unit tests before a PR is merged.
+- Layer boundaries are enforced via project references: the Domain project MUST
+  have no reference to the Renderer or Input projects.
+- Code review MUST verify: no `Console` calls in Domain classes, no static
+  mutable fields, English identifiers throughout, no third-party NuGet packages.
+- The build MUST succeed with `dotnet build` and all tests MUST pass with
+  `dotnet test` before any PR is merged.
+- Each PR MUST include a Constitution Check section confirming compliance with
+  Principles I–VII.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other implicit practices for the project.
+Any amendment requires:
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+1. Explicit justification: which principle is added, modified, or removed and why.
+2. Version bump per the versioning policy below.
+3. All dependent templates (plan-template.md, spec-template.md, tasks-template.md)
+   updated to reflect the change.
+
+**Versioning policy**:
+- MAJOR — incompatible principle removals or redefinitions.
+- MINOR — new principle or section added, or material expansion of existing guidance.
+- PATCH — clarifications, wording fixes, non-semantic refinements.
+
+**Version**: 1.0.0 | **Ratified**: 2026-04-07 | **Last Amended**: 2026-04-07
