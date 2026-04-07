@@ -14,7 +14,7 @@ Hasta nuevo aviso en ENMARCHIA, se deben usar estas versiones:
 - Spec-Kit (specify-cli): v0.5.0
 - Squad CLI (@bradygaster/squad-cli): v0.9.1
 
-Version minima recomendada de ENMARCHIA para este flujo: v0.1.3
+Version minima recomendada de ENMARCHIA para este flujo: v0.1.4
 
 ## Proyectos base referenciados
 
@@ -45,10 +45,10 @@ Convertir especificaciones en trabajo ejecutable sin ambiguedad:
 
 1. Instalar ENMARCHIA:
 
-   npm install -g @fjbelizon/enmarchia@0.1.3
+   npm install -g @fjbelizon/enmarchia@0.1.4
 
    Si ya tienes una version anterior:
-   npm install -g @fjbelizon/enmarchia@0.1.3
+   npm install -g @fjbelizon/enmarchia@0.1.4
 
 2. Instalar Spec-Kit CLI:
 
@@ -85,6 +85,7 @@ enmarchia init --owner tu-org-o-user --repo tu-repo --with-spec-kit --with-squad
 
 Compatibilidad:
 
+- ENMARCHIA >= 0.1.4: evita `spawn EINVAL` en `launch` (Windows/Node.js 24), evita duplicado de `--execute` y autocrea labels `squad:<member>` faltantes antes del triage.
 - ENMARCHIA >= 0.1.3: inicializa Spec-Kit automáticamente en Windows, soporta carpetas nnn-xxx, bridge requiere --spec-path, `--force` reprocesa tareas anotadas y detecta `tasks.md` con CRLF en Windows.
 - ENMARCHIA >= 0.1.3: incluye fix ESM para evitar `ReferenceError: require is not defined` al sincronizar conocimiento de Squad en Node.js 24.
 - ENMARCHIA 0.1.1: soporta --with-squad-copilot pero puede tener problemas con Spec-Kit en Windows.
@@ -153,7 +154,7 @@ enmarchia launch
 
 Que hace:
 
-- Ejecuta squad triage --execute con parametros compatibles.
+- Ejecuta squad triage en modo de ejecucion continua con parametros compatibles.
 - Si `.squad/team.md` no tiene miembros, genera automaticamente un equipo base a partir de tareas pendientes y continua el arranque.
 - Mantiene ciclo de trabajo sobre issues etiquetados para ENMARCHIA.
 
