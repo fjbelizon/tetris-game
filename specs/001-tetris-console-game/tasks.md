@@ -13,10 +13,10 @@
 
 **Purpose**: Initialize solution structure and xUnit configuration.
 
-- [ ] T001 Create .NET solution and projects in TetrisGame.sln (#43)
-- [ ] T002 Create architecture folders and placeholders in TetrisGame/Domain/.gitkeep (#44)
-- [ ] T003 [P] Configure xUnit project reference and test runner in TetrisGame.Tests/TetrisGame.Tests.csproj (#45)
-- [ ] T004 [P] Set C# 14 language version in TetrisGame/TetrisGame.csproj (#46)
+- [ ] T001 Create .NET solution and projects in TetrisGame.sln (#85)
+- [ ] T002 Create architecture folders and placeholders in TetrisGame/Domain/.gitkeep (#86)
+- [ ] T003 [P] Configure xUnit project reference and test runner in TetrisGame.Tests/TetrisGame.Tests.csproj (#87)
+- [ ] T004 [P] Set C# 14 language version in TetrisGame/TetrisGame.csproj (#88)
 
 ---
 
@@ -26,24 +26,24 @@
 
 **Critical rule**: Each domain implementation task has a corresponding unit test task.
 
-- [ ] T005 [P] Add board invariants tests (10x20, bounds) in TetrisGame.Tests/Domain/BoardTests.cs (#47)
-- [ ] T006 Implement Board dimensions and bounds checks in TetrisGame/Domain/Board.cs (#48)
-- [ ] T007 [P] Add piece state tests (type, rotation, origin) in TetrisGame.Tests/Domain/PieceTests.cs (#49)
-- [ ] T008 Implement Piece state and movement operations in TetrisGame/Domain/Piece.cs (#50)
-- [ ] T009 [P] Add 7-bag distribution tests for all tetrominoes in TetrisGame.Tests/Domain/PieceFactoryTests.cs (#51)
-- [ ] T010 Implement PieceFactory with shuffled 7-bag generator in TetrisGame/Domain/PieceFactory.cs (#52)
-- [ ] T011 [P] Add clockwise rotation behavior tests by piece type in TetrisGame.Tests/Domain/PieceRotationTests.cs (#53)
-- [ ] T012 Implement clockwise rotation rules in TetrisGame/Domain/Piece.cs (#54)
-- [ ] T013 [P] Add collision rejection tests (walls and settled cells) in TetrisGame.Tests/Domain/BoardCollisionTests.cs (#55)
-- [ ] T014 Implement collision validation (`CanPlace`) in TetrisGame/Domain/Board.cs (#56)
-- [ ] T015 [P] Add lock/fixation tests when downward move is blocked in TetrisGame.Tests/Domain/BoardLockTests.cs (#57)
-- [ ] T016 Implement piece lock/fixation behavior in TetrisGame/Domain/Board.cs (#58)
-- [ ] T017 [P] Add line clear tests (single and multi-line) in TetrisGame.Tests/Domain/BoardLineClearTests.cs (#59)
-- [ ] T018 Implement complete-line cleanup and row shift in TetrisGame/Domain/Board.cs (#60)
-- [ ] T019 [P] Add scoring table tests (1/2/3/4 lines -> 100/300/500/800) in TetrisGame.Tests/Domain/ScoreSystemTests.cs (#61)
-- [ ] T020 Implement score update policy in TetrisGame/Domain/ScoreSystem.cs (#62)
-- [ ] T021 [P] Add level and gravity interval tests (`max(1000-((level-1)*100),100)`) in TetrisGame.Tests/Domain/LevelProgressionTests.cs (#63)
-- [ ] T022 Implement level progression and interval calculation in TetrisGame/Domain/ScoreSystem.cs (#64)
+- [ ] T005 [P] Add board invariants tests (10x20, bounds) in TetrisGame.Tests/Domain/BoardTests.cs (#89)
+- [ ] T006 Implement Board dimensions and bounds checks in TetrisGame/Domain/Board.cs (#90)
+- [ ] T007 [P] Add piece state tests (type, rotation, origin) in TetrisGame.Tests/Domain/PieceTests.cs (#91)
+- [ ] T008 Implement Piece state and movement operations in TetrisGame/Domain/Piece.cs (#92)
+- [ ] T009 [P] Add 7-bag distribution tests for all tetrominoes in TetrisGame.Tests/Domain/PieceFactoryTests.cs (#93)
+- [ ] T010 Implement PieceFactory with shuffled 7-bag generator in TetrisGame/Domain/PieceFactory.cs (#94)
+- [ ] T011 [P] Add clockwise rotation behavior tests by piece type in TetrisGame.Tests/Domain/PieceRotationTests.cs (#95)
+- [ ] T012 Implement clockwise rotation rules in TetrisGame/Domain/Piece.cs (#96)
+- [ ] T013 [P] Add collision rejection tests (walls and settled cells) in TetrisGame.Tests/Domain/BoardCollisionTests.cs (#97)
+- [ ] T014 Implement collision validation (`CanPlace`) in TetrisGame/Domain/Board.cs (#98)
+- [ ] T015 [P] Add lock/fixation tests when downward move is blocked in TetrisGame.Tests/Domain/BoardLockTests.cs (#99)
+- [ ] T016 Implement piece lock/fixation behavior in TetrisGame/Domain/Board.cs (#100)
+- [ ] T017 [P] Add line clear tests (single and multi-line) in TetrisGame.Tests/Domain/BoardLineClearTests.cs (#101)
+- [ ] T018 Implement complete-line cleanup and row shift in TetrisGame/Domain/Board.cs (#102)
+- [ ] T019 [P] Add scoring table tests (1/2/3/4 lines -> 100/300/500/800) in TetrisGame.Tests/Domain/ScoreSystemTests.cs (#103)
+- [ ] T020 Implement score update policy in TetrisGame/Domain/ScoreSystem.cs (#104)
+- [ ] T021 [P] Add level and gravity interval tests (`max(1000-((level-1)*100),100)`) in TetrisGame.Tests/Domain/LevelProgressionTests.cs (#105)
+- [ ] T022 Implement level progression and interval calculation in TetrisGame/Domain/ScoreSystem.cs (#106)
 
 **Checkpoint**: Domain core is complete and fully unit-tested.
 
@@ -55,12 +55,12 @@
 
 **Independent Test**: Start the app and verify automatic gravity tick, left/right/down/rotate input response, and no blocking while idle.
 
-- [ ] T023 [P] [US1] Add game loop cadence tests in TetrisGame.Tests/Loop/GameTickTests.cs (#65)
-- [ ] T024 [US1] Implement synchronous tick loop and gravity accumulator in TetrisGame/Domain/GameEngine.cs (#66)
-- [ ] T025 [US1] Implement input command enum and mapping contract in TetrisGame/Domain/InputCommand.cs (#67)
-- [ ] T026 [US1] Implement non-blocking keyboard polling (`Console.KeyAvailable`) in TetrisGame/Input/KeyboardInputProvider.cs (#68)
-- [ ] T027 [US1] Integrate input + tick orchestration in TetrisGame/Program.cs (#69)
-- [ ] T028 [US1] Integrate lock-and-spawn flow into runtime state in TetrisGame/Domain/GameState.cs (#70)
+- [ ] T023 [P] [US1] Add game loop cadence tests in TetrisGame.Tests/Loop/GameTickTests.cs (#107)
+- [ ] T024 [US1] Implement synchronous tick loop and gravity accumulator in TetrisGame/Domain/GameEngine.cs (#108)
+- [ ] T025 [US1] Implement input command enum and mapping contract in TetrisGame/Domain/InputCommand.cs (#109)
+- [ ] T026 [US1] Implement non-blocking keyboard polling (`Console.KeyAvailable`) in TetrisGame/Input/KeyboardInputProvider.cs (#110)
+- [ ] T027 [US1] Integrate input + tick orchestration in TetrisGame/Program.cs (#111)
+- [ ] T028 [US1] Integrate lock-and-spawn flow into runtime state in TetrisGame/Domain/GameState.cs (#112)
 
 **Checkpoint**: US1 fully playable with core loop and controls.
 
@@ -73,12 +73,12 @@
 **Independent Test (US2)**: Clear lines and verify score changes appear immediately in the info panel.
 **Independent Test (US3)**: Reach every 10 cleared lines and verify level and fall speed updates are reflected.
 
-- [ ] T029 [US2] Implement frame rendering for board + active piece overlay in TetrisGame/Rendering/ConsoleRenderer.cs (#71)
-- [ ] T030 [US2] Implement next-piece preview panel in TetrisGame/Rendering/ConsoleRenderer.cs (#72)
-- [ ] T031 [US2] Render current score in info panel in TetrisGame/Rendering/ConsoleRenderer.cs (#73)
-- [ ] T032 [US3] Render current level in info panel in TetrisGame/Rendering/ConsoleRenderer.cs (#74)
-- [ ] T033 [US3] Apply updated gravity interval after level-up in TetrisGame/Domain/GameEngine.cs (#75)
-- [ ] T034 [US2] Wire renderer update cycle in main runtime loop in TetrisGame/Program.cs (#76)
+- [ ] T029 [US2] Implement frame rendering for board + active piece overlay in TetrisGame/Rendering/ConsoleRenderer.cs (#113)
+- [ ] T030 [US2] Implement next-piece preview panel in TetrisGame/Rendering/ConsoleRenderer.cs (#114)
+- [ ] T031 [US2] Render current score in info panel in TetrisGame/Rendering/ConsoleRenderer.cs (#115)
+- [ ] T032 [US3] Render current level in info panel in TetrisGame/Rendering/ConsoleRenderer.cs (#116)
+- [ ] T033 [US3] Apply updated gravity interval after level-up in TetrisGame/Domain/GameEngine.cs (#117)
+- [ ] T034 [US2] Wire renderer update cycle in main runtime loop in TetrisGame/Program.cs (#118)
 
 **Checkpoint**: US2 and US3 are visible and verifiable through console UI updates.
 
@@ -90,11 +90,11 @@
 
 **Independent Test**: Force spawn overlap, verify game-over screen + final score, then validate `S` resets state and `N` exits cleanly.
 
-- [ ] T035 [P] [US4] Add game-over and replay flow tests in TetrisGame.Tests/Domain/GameStateGameOverTests.cs (#77)
-- [ ] T036 [US4] Implement spawn-collision game-over transition in TetrisGame/Domain/GameState.cs (#78)
-- [ ] T037 [US4] Implement game-over screen with final score and replay prompt in TetrisGame/Rendering/ConsoleRenderer.cs (#79)
-- [ ] T038 [US4] Implement replay (`S`) and exit (`N`) control handling in TetrisGame/Program.cs (#80)
-- [ ] T039 [US4] Implement full reset behavior (board, score, level, bag) in TetrisGame/Domain/GameState.cs (#81)
+- [ ] T035 [P] [US4] Add game-over and replay flow tests in TetrisGame.Tests/Domain/GameStateGameOverTests.cs (#119)
+- [ ] T036 [US4] Implement spawn-collision game-over transition in TetrisGame/Domain/GameState.cs (#120)
+- [ ] T037 [US4] Implement game-over screen with final score and replay prompt in TetrisGame/Rendering/ConsoleRenderer.cs (#121)
+- [ ] T038 [US4] Implement replay (`S`) and exit (`N`) control handling in TetrisGame/Program.cs (#122)
+- [ ] T039 [US4] Implement full reset behavior (board, score, level, bag) in TetrisGame/Domain/GameState.cs (#123)
 
 **Checkpoint**: Full game lifecycle (play -> game over -> restart/exit) is complete.
 
@@ -104,9 +104,9 @@
 
 **Purpose**: Final verification and handoff quality.
 
-- [ ] T040 Execute full regression test suite in TetrisGame.Tests/ (#82)
-- [ ] T041 Align run/test steps with final implementation in specs/001-tetris-console-game/quickstart.md (#83)
-- [ ] T042 Add MVP smoke checklist for manual validation in specs/001-tetris-console-game/checklists/mvp-smoke.md (#84)
+- [ ] T040 Execute full regression test suite in TetrisGame.Tests/ (#124)
+- [ ] T041 Align run/test steps with final implementation in specs/001-tetris-console-game/quickstart.md (#125)
+- [ ] T042 Add MVP smoke checklist for manual validation in specs/001-tetris-console-game/checklists/mvp-smoke.md (#126)
 
 ---
 
