@@ -1,26 +1,11 @@
-# Project Context
 
-- **Project:** tetris-game
-- **Created:** 2026-04-07
-
-## Core Context
-
-Agent Scribe initialized and ready for work.
-
-## Recent Updates
-
-📌 Team initialized on 2026-04-07
-
-## Learnings
-
-Initial setup complete.
 
 <!-- enmarchia:specs:start -->
 ## Enmarchia Project Specifications
 
 > The following specifications define the work I am expected to implement. Each task corresponds to a GitHub Issue I should work on.
 
-*Last synced: 2026-04-07T14:20:32.076Z*
+*Last synced: 2026-04-07T14:20:32.079Z*
 
 ### Feature: Tetris Console Game
 

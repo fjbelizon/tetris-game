@@ -14,7 +14,7 @@ Hasta nuevo aviso en ENMARCHIA, se deben usar estas versiones:
 - Spec-Kit (specify-cli): v0.5.0
 - Squad CLI (@bradygaster/squad-cli): v0.9.1
 
-Version minima recomendada de ENMARCHIA para este flujo: v0.1.2
+Version minima recomendada de ENMARCHIA para este flujo: v0.1.4
 
 ## Proyectos base referenciados
 
@@ -27,7 +27,7 @@ Detalles de cumplimiento de terceros: THIRD_PARTY_NOTICES.md
 
 Convertir especificaciones en trabajo ejecutable sin ambiguedad:
 
-1. Definir especificaciones en specs/spec-xxx.
+1. Definir especificaciones en specs/{spec-name}.
 2. Convertir tareas a issues de GitHub.
 3. Sincronizar conocimiento en agentes Squad.
 4. Lanzar ejecucion autonoma.
@@ -41,14 +41,25 @@ Convertir especificaciones en trabajo ejecutable sin ambiguedad:
 - GitHub CLI autenticado (gh auth login)
 - Token en GITHUB_TOKEN (scope repo)
 
+## Limitaciones conocidas
+
+**Squad Configuration debe estar en rama default (main)**
+
+La configuración de Squad (.squad/team.md y .squad/agents/*) reside en la rama por defecto del repositorio (generalmente `main`). GitHub Actions y otros procesos de integración leen esta configuración desde la rama default.
+
+- Si ejecutas `enmarchia bridge` desde una rama de feature, asegúrate de que .squad/team.md y .squad/agents/* estén mergeados a main.
+- Si no están en main, GitHub Actions comentará "No squad member found matching label squad:<name>" en las issues, incluso si el equipo existe en tu rama local.
+
+**Solución:** Mergea los cambios de `.squad/*` a main antes de ejecutar `enmarchia bridge`, o ejecuta bridge solo desde main.
+
 ## Instalacion
 
 1. Instalar ENMARCHIA:
 
-   npm install -g @fjbelizon/enmarchia@0.1.2
+   npm install -g @fjbelizon/enmarchia@0.1.4
 
    Si ya tienes una version anterior:
-   npm install -g @fjbelizon/enmarchia@0.1.2
+   npm install -g @fjbelizon/enmarchia@0.1.4
 
 2. Instalar Spec-Kit CLI:
 
@@ -64,14 +75,16 @@ ENMARCHIA trabaja sobre esta estructura:
 
 specs/
 - CONSTITUTION.md
-- spec-xxx/
+- {spec-name}/
   - spec.md
   - plan.md
   - tasks.md
 
 Notas:
-- Solo se procesan carpetas con prefijo spec-.
+
+- Se procesan carpetas específicas al ejecutar `enmarchia bridge --spec-path "specs/{spec-name}"`.
 - Cada item no completado de tasks.md se transforma en un issue.
+- En 0.1.2+, ambos patrones son soportados (generados por /speckit.specify).
 
 ## Plan de accion secuencial (recomendado)
 
@@ -83,7 +96,10 @@ enmarchia init --owner tu-org-o-user --repo tu-repo --with-spec-kit --with-squad
 
 Compatibilidad:
 
-- ENMARCHIA >= 0.1.1: soporta --with-squad-copilot.
+- ENMARCHIA >= 0.1.4: evita `spawn EINVAL` en `launch` (Windows/Node.js 24), evita duplicado de `--execute` y autocrea labels `squad:<member>` faltantes antes del triage.
+- ENMARCHIA >= 0.1.3: inicializa Spec-Kit automáticamente en Windows, soporta carpetas nnn-xxx, bridge requiere --spec-path, `--force` reprocesa tareas anotadas y detecta `tasks.md` con CRLF en Windows.
+- ENMARCHIA >= 0.1.3: incluye fix ESM para evitar `ReferenceError: require is not defined` al sincronizar conocimiento de Squad en Node.js 24.
+- ENMARCHIA 0.1.1: soporta --with-squad-copilot pero puede tener problemas con Spec-Kit en Windows.
 - ENMARCHIA 0.1.0: usa enmarchia init --owner <owner> --repo <repo> --with-spec-kit --with-squad y luego ejecuta squad copilot manualmente.
 
 Que hace este comando:
@@ -107,20 +123,34 @@ En GitHub Copilot Chat, en este orden:
 Resultado esperado:
 
 - specs/CONSTITUTION.md
-- specs/spec-xxx/spec.md
-- specs/spec-xxx/plan.md
-- specs/spec-xxx/tasks.md
+- specs/{spec-name}/spec.md
+- specs/{spec-name}/plan.md
+- specs/{spec-name}/tasks.md
 
 ### Paso 3. Crear issues desde tareas
 
-enmarchia bridge
+**Prerequisito:** Asegúrate de que .squad/team.md y .squad/agents/* estén en la rama default (main). Si trabajas en una rama de feature, mergea primero los cambios de Squad a main.
+
+enmarchia bridge --spec-path specs/001-tetris-console-game
+
+o
+
+enmarchia bridge --spec-path spec-user-auth
+
+o
+
+enmarchia bridge --spec-path C:\proyectos\mi-repo\specs\001-tetris-console-game
 
 Que hace:
 
-- Lee specs/spec-xxx/tasks.md.
+- Lee tasks.md de la carpeta indicada en --spec-path.
 - Crea un issue por tarea pendiente.
 - Anota (#numero) en tasks.md para trazabilidad.
+- Con --force, reprocesa tareas no completadas aunque ya tengan (#N), y actualiza la anotacion al nuevo issue.
 - Si autoSync esta activo, sincroniza conocimiento a Squad.
+
+Nota: En 0.1.2+, --spec-path es obligatorio para mapear directamente a la especificación destino en Squad.
+Tambien acepta id directo, ruta relativa o ruta absoluta, con separadores / o \\.
 
 ### Paso 4. Sincronizar conocimiento de specs
 
@@ -137,7 +167,8 @@ enmarchia launch
 
 Que hace:
 
-- Ejecuta squad triage --execute con parametros compatibles.
+- Ejecuta squad triage en modo de ejecucion continua con parametros compatibles.
+- Si `.squad/team.md` no tiene miembros, genera automaticamente un equipo base a partir de tareas pendientes y continua el arranque.
 - Mantiene ciclo de trabajo sobre issues etiquetados para ENMARCHIA.
 
 ### Paso 6. Monitorear estado end-to-end
