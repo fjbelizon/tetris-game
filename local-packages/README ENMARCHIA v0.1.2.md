@@ -64,14 +64,16 @@ ENMARCHIA trabaja sobre esta estructura:
 
 specs/
 - CONSTITUTION.md
-- spec-xxx/
+- {spec-name}/
   - spec.md
   - plan.md
   - tasks.md
 
 Notas:
-- Solo se procesan carpetas con prefijo spec-.
+
+- Se procesan carpetas específicas al ejecutar `enmarchia bridge --spec-path "specs/{spec-name}"`.
 - Cada item no completado de tasks.md se transforma en un issue.
+- En 0.1.2+, ambos patrones son soportados (generados por /speckit.specify).
 
 ## Plan de accion secuencial (recomendado)
 
@@ -83,7 +85,8 @@ enmarchia init --owner tu-org-o-user --repo tu-repo --with-spec-kit --with-squad
 
 Compatibilidad:
 
-- ENMARCHIA >= 0.1.1: soporta --with-squad-copilot.
+- ENMARCHIA >= 0.1.2: inicializa Spec-Kit automáticamente en Windows, soporta carpetas nnn-xxx, bridge requiere --spec-path.
+- ENMARCHIA 0.1.1: soporta --with-squad-copilot pero puede tener problemas con Spec-Kit en Windows.
 - ENMARCHIA 0.1.0: usa enmarchia init --owner <owner> --repo <repo> --with-spec-kit --with-squad y luego ejecuta squad copilot manualmente.
 
 Que hace este comando:
@@ -113,14 +116,20 @@ Resultado esperado:
 
 ### Paso 3. Crear issues desde tareas
 
-enmarchia bridge
+enmarchia bridge --spec-path specs/001-tetris-console-game
+
+or
+
+enmarchia bridge --spec-path spec-user-auth
 
 Que hace:
 
-- Lee specs/spec-xxx/tasks.md.
+- Lee tasks.md de la carpeta indicada en --spec-path.
 - Crea un issue por tarea pendiente.
 - Anota (#numero) en tasks.md para trazabilidad.
 - Si autoSync esta activo, sincroniza conocimiento a Squad.
+
+Nota: En 0.1.2+, --spec-path es obligatorio para mapear directamente a la especificación destino en Squad.
 
 ### Paso 4. Sincronizar conocimiento de specs
 
