@@ -3,14 +3,18 @@
 Spec-Kit + Squad en un flujo unico para desarrollo autonomo guiado por especificaciones.
 
 ENMARCHIA es la capa de orquestacion sobre:
+
 - Spec-Kit: define que construir.
 - Squad: ejecuta de forma autonoma.
 
 ## Versiones soportadas (obligatorias)
 
 Hasta nuevo aviso en ENMARCHIA, se deben usar estas versiones:
+
 - Spec-Kit (specify-cli): v0.5.0
 - Squad CLI (@bradygaster/squad-cli): v0.9.1
+
+Version minima recomendada de ENMARCHIA para este flujo: v0.1.1
 
 ## Proyectos base referenciados
 
@@ -22,6 +26,7 @@ Detalles de cumplimiento de terceros: THIRD_PARTY_NOTICES.md
 ## Objetivo
 
 Convertir especificaciones en trabajo ejecutable sin ambiguedad:
+
 1. Definir especificaciones en specs/spec-xxx.
 2. Convertir tareas a issues de GitHub.
 3. Sincronizar conocimiento en agentes Squad.
@@ -40,7 +45,10 @@ Convertir especificaciones en trabajo ejecutable sin ambiguedad:
 
 1. Instalar ENMARCHIA:
 
-   npm install -g @fjbelizon/enmarchia
+   npm install -g @fjbelizon/enmarchia@0.1.1
+
+   Si ya tienes una version anterior:
+   npm install -g @fjbelizon/enmarchia@0.1.1
 
 2. Instalar Spec-Kit CLI:
 
@@ -73,7 +81,13 @@ En un repositorio nuevo o existente:
 
 enmarchia init --owner tu-org-o-user --repo tu-repo --with-spec-kit --with-squad --with-squad-copilot
 
+Compatibilidad:
+
+- ENMARCHIA >= 0.1.1: soporta --with-squad-copilot.
+- ENMARCHIA 0.1.0: usa enmarchia init --owner <owner> --repo <repo> --with-spec-kit --with-squad y luego ejecuta squad copilot manualmente.
+
 Que hace este comando:
+
 - Crea .enmarchia.json.
 - Crea squad.agent.md y .copilot/enmarchia.md.
 - Crea scaffold de specs si no existe.
@@ -91,6 +105,7 @@ En GitHub Copilot Chat, en este orden:
 /speckit.tasks
 
 Resultado esperado:
+
 - specs/CONSTITUTION.md
 - specs/spec-xxx/spec.md
 - specs/spec-xxx/plan.md
@@ -101,6 +116,7 @@ Resultado esperado:
 enmarchia bridge
 
 Que hace:
+
 - Lee specs/spec-xxx/tasks.md.
 - Crea un issue por tarea pendiente.
 - Anota (#numero) en tasks.md para trazabilidad.
@@ -111,6 +127,7 @@ Que hace:
 enmarchia sync
 
 Que hace:
+
 - Genera .squad/enmarchia-specs.md.
 - Inyecta contexto de spec y plan en .squad/agents/*/history.md.
 
@@ -119,6 +136,7 @@ Que hace:
 enmarchia launch
 
 Que hace:
+
 - Ejecuta squad triage --execute con parametros compatibles.
 - Mantiene ciclo de trabajo sobre issues etiquetados para ENMARCHIA.
 
@@ -127,6 +145,7 @@ Que hace:
 enmarchia status
 
 Que valida:
+
 - Estado de specs y tareas.
 - Estado de Squad.
 - Issues abiertos/cerrados y tareas sin bridge.
@@ -146,6 +165,7 @@ Referencia completa: docs/commands.md
 Archivo: .enmarchia.json
 
 Campos clave:
+
 - specKit.featuresDir: por defecto specs
 - specKit.constitutionFile: por defecto specs/CONSTITUTION.md
 - squad.dir: por defecto .squad
@@ -154,6 +174,7 @@ Campos clave:
 ## Criterio operativo
 
 Para operar sin friccion:
+
 1. Mantener actualizado tasks.md con /speckit.tasks.
 2. Ejecutar enmarchia bridge despues de cada cambio de tareas.
 3. Ejecutar enmarchia sync despues de cambios en spec o plan.
