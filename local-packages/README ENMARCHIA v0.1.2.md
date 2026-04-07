@@ -14,7 +14,7 @@ Hasta nuevo aviso en ENMARCHIA, se deben usar estas versiones:
 - Spec-Kit (specify-cli): v0.5.0
 - Squad CLI (@bradygaster/squad-cli): v0.9.1
 
-Version minima recomendada de ENMARCHIA para este flujo: v0.1.1
+Version minima recomendada de ENMARCHIA para este flujo: v0.1.2
 
 ## Proyectos base referenciados
 
@@ -45,10 +45,10 @@ Convertir especificaciones en trabajo ejecutable sin ambiguedad:
 
 1. Instalar ENMARCHIA:
 
-   npm install -g @fjbelizon/enmarchia@0.1.1
+   npm install -g @fjbelizon/enmarchia@0.1.2
 
    Si ya tienes una version anterior:
-   npm install -g @fjbelizon/enmarchia@0.1.1
+   npm install -g @fjbelizon/enmarchia@0.1.2
 
 2. Instalar Spec-Kit CLI:
 
