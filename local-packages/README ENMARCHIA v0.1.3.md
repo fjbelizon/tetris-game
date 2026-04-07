@@ -14,7 +14,7 @@ Hasta nuevo aviso en ENMARCHIA, se deben usar estas versiones:
 - Spec-Kit (specify-cli): v0.5.0
 - Squad CLI (@bradygaster/squad-cli): v0.9.1
 
-Version minima recomendada de ENMARCHIA para este flujo: v0.1.2
+Version minima recomendada de ENMARCHIA para este flujo: v0.1.3
 
 ## Proyectos base referenciados
 
@@ -45,10 +45,10 @@ Convertir especificaciones en trabajo ejecutable sin ambiguedad:
 
 1. Instalar ENMARCHIA:
 
-   npm install -g @fjbelizon/enmarchia@0.1.2
+   npm install -g @fjbelizon/enmarchia@0.1.3
 
    Si ya tienes una version anterior:
-   npm install -g @fjbelizon/enmarchia@0.1.2
+   npm install -g @fjbelizon/enmarchia@0.1.3
 
 2. Instalar Spec-Kit CLI:
 
@@ -85,7 +85,7 @@ enmarchia init --owner tu-org-o-user --repo tu-repo --with-spec-kit --with-squad
 
 Compatibilidad:
 
-- ENMARCHIA >= 0.1.2: inicializa Spec-Kit automáticamente en Windows, soporta carpetas nnn-xxx, bridge requiere --spec-path.
+- ENMARCHIA >= 0.1.3: inicializa Spec-Kit automáticamente en Windows, soporta carpetas nnn-xxx, bridge requiere --spec-path, `--force` reprocesa tareas anotadas y detecta `tasks.md` con CRLF en Windows.
 - ENMARCHIA 0.1.1: soporta --with-squad-copilot pero puede tener problemas con Spec-Kit en Windows.
 - ENMARCHIA 0.1.0: usa enmarchia init --owner <owner> --repo <repo> --with-spec-kit --with-squad y luego ejecuta squad copilot manualmente.
 
@@ -131,6 +131,7 @@ Que hace:
 - Lee tasks.md de la carpeta indicada en --spec-path.
 - Crea un issue por tarea pendiente.
 - Anota (#numero) en tasks.md para trazabilidad.
+- Con --force, reprocesa tareas no completadas aunque ya tengan (#N), y actualiza la anotacion al nuevo issue.
 - Si autoSync esta activo, sincroniza conocimiento a Squad.
 
 Nota: En 0.1.2+, --spec-path es obligatorio para mapear directamente a la especificación destino en Squad.
