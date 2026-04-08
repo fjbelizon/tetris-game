@@ -110,6 +110,12 @@ Que hace este comando:
 - Crea scaffold de specs si no existe.
 - Ejecuta specify init mediante ENMARCHIA (si esta disponible).
 - Ejecuta squad init y opcionalmente squad copilot mediante ENMARCHIA.
+- Intenta configurar automaticamente `COPILOT_ASSIGN_TOKEN` en los secrets del repositorio GitHub para habilitar la asignacion de @copilot en GitHub Actions.
+
+Si necesitas reconfigurarlo manualmente:
+
+- enmarchia --reconfigure-token
+- enmarchia --reconfigure-token --owner tu-org-o-user --repo tu-repo
 
 ### Paso 2. Redactar especificaciones Spec-Kit
 
