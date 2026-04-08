@@ -46,7 +46,7 @@ public class GameTickTests
     }
 
     [Fact]
-    public void GameEngine_Tick_ReturnsfalseWhenGameOver()
+    public void GameEngine_Tick_ReturnsFalseWhenGameOver()
     {
         var state = new GameState();
         var engine = new GameEngine(state);
