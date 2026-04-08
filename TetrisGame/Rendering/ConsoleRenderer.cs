@@ -17,7 +17,7 @@ public sealed class ConsoleRenderer
     private const int BoardTop = 1;
     private const int InfoCol = Board.Width * 2 + 4; // right of the board
 
-    // Colour mapping per piece type
+    // Color mapping per piece type
     private static readonly Dictionary<TetrominoType, ConsoleColor> PieceColors = new()
     {
         [TetrominoType.I] = ConsoleColor.Cyan,
@@ -66,7 +66,7 @@ public sealed class ConsoleRenderer
             $"  Score: {state.Score.Score,6}  ",
             ConsoleColor.White, ConsoleColor.DarkRed);
         WriteAt(msgCol, msgRow + 2,
-            "¿Jugar de nuevo? (S/N)",
+            "¿Deseas jugar de nuevo? (S/N)",
             ConsoleColor.Yellow, ConsoleColor.Black);
 
         // Place cursor below prompt so it does not flicker on the board
