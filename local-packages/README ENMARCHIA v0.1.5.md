@@ -14,7 +14,7 @@ Hasta nuevo aviso en ENMARCHIA, se deben usar estas versiones:
 - Spec-Kit (specify-cli): v0.5.0
 - Squad CLI (@bradygaster/squad-cli): v0.9.1
 
-Version minima recomendada de ENMARCHIA para este flujo: v0.1.4
+Version minima recomendada de ENMARCHIA para este flujo: v0.1.5
 
 ## Proyectos base referenciados
 
@@ -96,6 +96,7 @@ enmarchia init --owner tu-org-o-user --repo tu-repo --with-spec-kit --with-squad
 
 Compatibilidad:
 
+- ENMARCHIA >= 0.1.5: incluye modos de ejecucion `--mode copilot` (asigna issues a @copilot coding agent), `--mode local` (ejecuta via `gh copilot` en la maquina local), `--issues` para filtrar por numero y `--all` para procesar issues cerradas.
 - ENMARCHIA >= 0.1.4: evita `spawn EINVAL` en `launch` (Windows/Node.js 24), evita duplicado de `--execute` y autocrea labels `squad:<member>` faltantes antes del triage.
 - ENMARCHIA >= 0.1.3: inicializa Spec-Kit automáticamente en Windows, soporta carpetas nnn-xxx, bridge requiere --spec-path, `--force` reprocesa tareas anotadas y detecta `tasks.md` con CRLF en Windows.
 - ENMARCHIA >= 0.1.3: incluye fix ESM para evitar `ReferenceError: require is not defined` al sincronizar conocimiento de Squad en Node.js 24.
@@ -170,6 +171,15 @@ Que hace:
 - Ejecuta squad triage en modo de ejecucion continua con parametros compatibles.
 - Si `.squad/team.md` no tiene miembros, genera automaticamente un equipo base a partir de tareas pendientes y continua el arranque.
 - Mantiene ciclo de trabajo sobre issues etiquetados para ENMARCHIA.
+
+Modos de ejecucion alternativos (v0.1.5+):
+
+- enmarchia launch --mode copilot: asigna issues abiertas directamente al @copilot coding agent para ejecucion remota autonoma.
+- enmarchia launch --mode copilot --issues 1 2 3: asigna solo las issues indicadas.
+- enmarchia launch --mode copilot --issues 1 2 3 --force-reopen: reabre issues cerradas y las asigna a @copilot.
+- enmarchia launch --mode copilot --all: asigna todas las issues abiertas.
+- enmarchia launch --mode local: ejecuta issues localmente usando gh copilot.
+- enmarchia launch --mode local --issues 1 --dry-run: muestra la ejecucion sin actuar.
 
 ### Paso 6. Monitorear estado end-to-end
 
