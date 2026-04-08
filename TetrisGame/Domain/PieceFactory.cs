@@ -22,7 +22,7 @@ public sealed class PieceFactory
 
     public static Piece Spawn(TetrominoType type)
     {
-        int spawnX = type == TetrominoType.O ? 4 : 4;
+        const int spawnX = 4;
         const int spawnY = 0;
         return new Piece(type, 0, spawnX, spawnY);
     }
