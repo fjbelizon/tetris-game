@@ -1,11 +1,6 @@
 namespace TetrisGame.Domain;
 
-/// <summary>
-/// Generates tetrominoes using a shuffled 7-bag algorithm.
-/// Each bag contains exactly one instance of every TetrominoType.
-/// When the bag is exhausted a new shuffled bag is generated automatically.
-/// </summary>
-public class PieceFactory
+public sealed class PieceFactory
 {
     private readonly Queue<TetrominoType> _bag = new();
     private readonly Random _random;
@@ -41,6 +36,22 @@ public class PieceFactory
 
         // Fisher-Yates shuffle
         for (int i = types.Count - 1; i > 0; i--)
+    }
+
+    public Piece Next()
+    {
+        if (_bag.Count == 0)
+            Refill();
+
+        var type = _bag.Dequeue();
+        return SpawnPiece(type);
+    }
+
+    private void Refill()
+    {
+        var types = (TetrominoType[])Enum.GetValues(typeof(TetrominoType));
+        // Fisher-Yates shuffle
+        for (int i = types.Length - 1; i > 0; i--)
         {
             int j = _random.Next(i + 1);
             (types[i], types[j]) = (types[j], types[i]);
@@ -48,5 +59,19 @@ public class PieceFactory
 
         foreach (var t in types)
             _bag.Enqueue(t);
+    }
+        foreach (var t in types)
+            _bag.Enqueue(t);
+    }
+
+    private static Piece SpawnPiece(TetrominoType type)
+    {
+        // Spawn at top-center of a 10-wide board
+        return type switch
+        {
+            TetrominoType.I => new Piece(type, 0, 3, 0),
+            TetrominoType.O => new Piece(type, 0, 4, 0),
+            _ => new Piece(type, 0, 3, 0)
+        };
     }
 }
