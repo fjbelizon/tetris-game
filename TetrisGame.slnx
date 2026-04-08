@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="TetrisGame.Tests/TetrisGame.Tests.csproj" />
+  <Project Path="TetrisGame/TetrisGame.csproj" />
+</Solution>
