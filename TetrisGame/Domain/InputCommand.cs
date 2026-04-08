@@ -6,7 +6,5 @@ public enum InputCommand
     MoveLeft,
     MoveRight,
     MoveDown,
-    Rotate,
-    ReplayYes,
-    ReplayNo
+    Rotate
 }
