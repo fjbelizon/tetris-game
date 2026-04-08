@@ -2,6 +2,9 @@
 bin/
 obj/
 *.user
+*.suo
+.vs/
+*.nupkg
 
 # Squad: ignore runtime state (logs, inbox, sessions)
 .squad/orchestration-log/
