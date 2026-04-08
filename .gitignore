@@ -18,5 +18,6 @@ obj/
 bin/
 obj/
 *.user
+TestResults/
 *.suo
 .vs/
