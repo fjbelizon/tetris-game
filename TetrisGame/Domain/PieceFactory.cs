@@ -8,6 +8,34 @@ public sealed class PieceFactory
     public PieceFactory(Random? random = null)
     {
         _random = random ?? Random.Shared;
+        RefillBag();
+    }
+
+    /// <summary>
+    /// Returns the next TetrominoType from the bag, refilling when empty.
+    /// </summary>
+    public TetrominoType TakeNext()
+    {
+        if (_bag.Count == 0)
+            RefillBag();
+        return _bag.Dequeue();
+    }
+
+    private void RefillBag()
+    {
+        var types = new List<TetrominoType>
+        {
+            TetrominoType.I,
+            TetrominoType.O,
+            TetrominoType.T,
+            TetrominoType.S,
+            TetrominoType.Z,
+            TetrominoType.J,
+            TetrominoType.L
+        };
+
+        // Fisher-Yates shuffle
+        for (int i = types.Count - 1; i > 0; i--)
     }
 
     public Piece Next()
@@ -28,6 +56,10 @@ public sealed class PieceFactory
             int j = _random.Next(i + 1);
             (types[i], types[j]) = (types[j], types[i]);
         }
+
+        foreach (var t in types)
+            _bag.Enqueue(t);
+    }
         foreach (var t in types)
             _bag.Enqueue(t);
     }
